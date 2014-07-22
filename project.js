@@ -121,7 +121,7 @@ app.controller('mainController', function($scope, Restangular, $sce, $alert, $ti
                 return;
             }
         }
-        
+
         $scope.txn.deposit_list.push(angular.copy(bill.value));
     };
 
@@ -161,7 +161,7 @@ app.controller('mainController', function($scope, Restangular, $sce, $alert, $ti
         $scope.currencies = new Array();
         _.forEach(all_currencies, function(c, idx) {
             var ff = _.find(lst, {coin_type: c.code});
-            if(ff) { 
+            if(ff) {
                 var linkage = angular.copy(c);
                 linkage.account = ff.CK_refnum;
                 $scope.currencies.push(linkage);
@@ -206,7 +206,7 @@ app.controller('mainController', function($scope, Restangular, $sce, $alert, $ti
     };
 
     $scope.finalize_transaction = function() {
-        // Tried and failed to use modals here. 
+        // Tried and failed to use modals here.
         var txn = $scope.txn;
         txn.busy = true;
 
