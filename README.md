@@ -55,7 +55,7 @@ that real code should be careful to deal with correctly.
 which is unacceptable.  At a minimum, we would suggest encrypting
 them with a password that the operator must provide on startup.
 
-- Bitcoin (pubkey) address entry should always be via QR scanner, and
+- Bitcoin address entry should always be via QR scanner, and
 never by keyboard.
 
 

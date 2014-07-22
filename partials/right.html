@@ -19,8 +19,8 @@
     <span ng-switch-when="qr">
       Sending to wallet:
       <br>
-        <code>{{txn.dest_pubkey}}</code>
-        <em ng-hide="txn.dest_pubkey">(need valid pubkey)</em>
+        <code>{{txn.dest_address}}</code>
+        <em ng-hide="txn.dest_pubkey">(need valid address)</em>
     </span>
 
     <span ng-switch-when="email">
