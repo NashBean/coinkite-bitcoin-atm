@@ -64,8 +64,8 @@ app.controller('mainController', function($scope, Restangular, $sce, $alert, $ti
         // these have to be picked by the user
         $scope.txn = {
             coin_type: null,
-            method: null,               // qr, email, sms or pubkey
-            dest_pubkey: null,
+            method: null,               // qr, email, sms or address
+            dest_address: null,
             dest_email: null,
             dest_phone: null,
 
@@ -90,13 +90,13 @@ app.controller('mainController', function($scope, Restangular, $sce, $alert, $ti
     });
 
     $scope.need_qr = function() {
-        return $scope.txn.method == 'qr' && !$scope.txn.dest_pubkey;
+        return $scope.txn.method == 'qr' && !$scope.txn.dest_address;
     };
 
     $scope.cash_ready = function() {
         // when are we ready to accept bills?
         return $scope.txn.coin_type && $scope.txn.method
-                 && ($scope.txn.method != 'qr' || $scope.txn.dest_pubkey)
+                 && ($scope.txn.method != 'qr' || $scope.txn.dest_address)
                  && ($scope.txn.method != 'email' || $scope.txn.dest_email)
                  && ($scope.txn.method != 'sms' || $scope.txn.dest_phone);
     };
@@ -106,8 +106,8 @@ app.controller('mainController', function($scope, Restangular, $sce, $alert, $ti
         return $scope.cash_ready() && $scope.txn.deposit_list.length;
     };
 
-    $scope.new_pubkey = function(pk) {
-        console.log("New key: ", $scope.txn.dest_pubkey);
+    $scope.new_address = function(pk) {
+        console.log("New key: ", $scope.txn.dest_address);
     };
 
     $scope.insert_bill = function(bill) {
@@ -225,7 +225,7 @@ app.controller('mainController', function($scope, Restangular, $sce, $alert, $ti
             } else if(m == 'sms') {
                 dest = txn.dest_sms;
             } else if(m == 'qr') {
-                dest = txn.dest_pubkey;
+                dest = txn.dest_address;
             }
 
             // Setup a PUT to specific endpoint, with "object" of arguments... ahem.
