@@ -14,40 +14,40 @@
 (function(exports){
 
 
-	// auth_headers()
-	//
-	// Make and sign a timestamp + endpoint combo with the API secret key.
-	// Provides all the extra headers required. Omit force_ts in most cases.
-	//
-	exports.auth_headers = function(api_key, secret, endpoint, force_ts) {
-		if(!secret || !endpoint || !api_key) {
-			console.error("Need key, endpoint and secret! ", api_key, secret, endpoint);
+    // auth_headers()
+    //
+    // Make and sign a timestamp + endpoint combo with the API secret key.
+    // Provides all the extra headers required. Omit force_ts in most cases.
+    //
+    exports.auth_headers = function(api_key, secret, endpoint, force_ts) {
+        if(!secret || !endpoint || !api_key) {
+            console.error("Need key, endpoint and secret! ", api_key, secret, endpoint);
 
-			return {};
-		}
+            return {};
+        }
 
-		// ignore query string stuff.
-		endpoint = endpoint.split('?')[0];
+        // ignore query string stuff.
+        endpoint = endpoint.split('?')[0];
 
-		var ts = force_ts || (new Date()).toISOString(); 
-		var data = endpoint + '|' + ts;
+        var ts = force_ts || (new Date()).toISOString(); 
+        var data = endpoint + '|' + ts;
 
-		// requires: http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha256.js
-		var hm;
+        // requires: http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha256.js
+        var hm;
 
-		if(typeof CryptoJS === 'undefined') {
-		  var crypto = require('crypto');
-		  hm = crypto.createHmac('sha256', secret).update(data).digest('hex')
-		} else {
-		  hm = CryptoJS.HmacSHA256(data, secret).toString();
-		}
+        if(typeof CryptoJS === 'undefined') {
+          var crypto = require('crypto');
+          hm = crypto.createHmac('sha256', secret).update(data).digest('hex')
+        } else {
+          hm = CryptoJS.HmacSHA256(data, secret).toString();
+        }
 
-		return { 
-			'X-CK-Key': api_key, 
-			'X-CK-Sign': hm,
-			'X-CK-Timestamp': ts,
-		};
-	}
+        return { 
+            'X-CK-Key': api_key, 
+            'X-CK-Sign': hm,
+            'X-CK-Timestamp': ts,
+        };
+    }
 
 })(typeof exports === 'undefined' ? this['CK_API']={} : exports);
 

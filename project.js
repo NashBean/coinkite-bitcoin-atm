@@ -9,10 +9,10 @@ var app = angular.module('cc-example-module', ['mgcrea.ngStrap', 'restangular'])
 
 app.controller('mainController', function($scope, Restangular, $sce, $alert, $timeout)
 {
-	// are we working with "real" coins, or just in demo mode?
-	$scope.real_money = false;
+    // are we working with "real" coins, or just in demo mode?
+    $scope.real_money = false;
 
-	// NOTE: This endpoint is public and does not require any API key to read.
+    // NOTE: This endpoint is public and does not require any API key to read.
     $scope.rates = {};
     $scope.reload_rates = function() {
         Restangular.one('public/rates').get().then(function(r) {
@@ -170,12 +170,12 @@ app.controller('mainController', function($scope, Restangular, $sce, $alert, $ti
         if(!$scope.currencies.length) {
             alert("No subaccounts linked are useable?");
             // we will be broken now...
-			$scope.currencies = angular.copy(all_currencies);
-			$scope.real_money = false;
+            $scope.currencies = angular.copy(all_currencies);
+            $scope.real_money = false;
 
             return;
         }
-		$scope.real_money = true;
+        $scope.real_money = true;
 
         /* debug code: preload a sample completed txn
         Restangular.one('/v1/detail/423EB1246C-E3F081').get().then(function(r) {
@@ -259,25 +259,25 @@ app.controller('mainController', function($scope, Restangular, $sce, $alert, $ti
 
 app.controller('CKAuthCtrl', function($scope, $http, $log, Restangular, $rootScope)
 {
-	// Initial state for variables.
+    // Initial state for variables.
     $scope.auth = {
         api_key: '',
         api_secret: '',
     };
 
-	// Try to populate keys with useful defaults... ok if this fails.
-	$http({method:'GET', url:'my-keys.json'}).success(function(d, status) {
-		if(status == 200) {
+    // Try to populate keys with useful defaults... ok if this fails.
+    $http({method:'GET', url:'my-keys.json'}).success(function(d, status) {
+        if(status == 200) {
             // Set the keys from the file's data.
             if(d.host) CK_API_HOST = d.host;
             angular.extend(CK_API_KEYS, d);
-			$scope.auth = d;
+            $scope.auth = d;
 
             $log.info("Got your keys");
-		} else {
-			$log.info("NOTE: You can add a JSON file in 'my-keys.json' in this directory"
+        } else {
+            $log.info("NOTE: You can add a JSON file in 'my-keys.json' in this directory"
                         +" to pre-fill your key values.");
-		}
+        }
     });
 
     // Monitor the auth keys, and fetch the account list when/if they change.
@@ -334,9 +334,9 @@ app.factory('myInterceptor', ['$log', function($log)
             // This allows my carefully constructed JSON error
             // responses to show through!
             $log.debug("HTTP Response (Error): ", response);
-			if(!response.data) {
-				response.data = '{"error":"HTTP Error ' + response.status + '"}';
-			}
+            if(!response.data) {
+                response.data = '{"error":"HTTP Error ' + response.status + '"}';
+            }
             return response;
         }
     };
