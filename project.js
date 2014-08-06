@@ -223,7 +223,7 @@ app.controller('mainController', function($scope, Restangular, $sce, $alert, $ti
             if(m == 'email') {
                 dest = txn.dest_email;
             } else if(m == 'sms') {
-                dest = txn.dest_sms;
+                dest = txn.dest_phone;
             } else if(m == 'qr') {
                 dest = txn.dest_address;
             }
@@ -269,7 +269,10 @@ app.controller('CKAuthCtrl', function($scope, $http, $log, Restangular, $rootSco
     $http({method:'GET', url:'my-keys.json'}).success(function(d, status) {
         if(status == 200) {
             // Set the keys from the file's data.
-            if(d.host) CK_API_HOST = d.host;
+            if(d.host) {
+				CK_API_HOST = d.host;
+				Restangular.setBaseUrl(CK_API_HOST);
+			}
             angular.extend(CK_API_KEYS, d);
             $scope.auth = d;
 
